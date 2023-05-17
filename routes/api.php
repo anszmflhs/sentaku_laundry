@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PriceListController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceManageController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login', [AuthController::class, 'loginUser']);
+Route::post('/register', [RegisterController::class, 'register']);
+Route::get('/logout', [AuthController::class, 'logoutUser']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/karyawans', [KaryawanController::class, 'index']);
 });

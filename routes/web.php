@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PriceListController;
 use App\Http\Controllers\Admin\ServiceManageController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Customer;
 use App\Models\Karyawan;
 use App\Models\Payment;
@@ -29,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'viewLogin'])->name('login.view');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login.post');
+Route::get('/register', [RegisterController::class, 'viewRegister'])->name('register.view');
+Route::post('/register', [RegisterController::class, 'registerUser'])->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('/admin')->group(function () {
