@@ -28,7 +28,8 @@ class AuthController extends Controller
 
     public function loginUser(Request $request)
     {
-    $input = $request->all();
+
+        $input = $request->all();
 
         $rules = [
             'email' => 'required|email',
@@ -43,30 +44,42 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => $validator->errors()
-            ]);
+            ], 400);
         }
 
         $credentials = $request->only(['email', 'password']);
+        // return dd($credentials);
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
+            // return redirect('/dashboard')->with('success', 'Login Sucesess');
             $token = $user->createToken('authToken')->plainTextToken;
-            return redirect()->intended('/dashboard')->with('success', 'Success login');
-            // response()->json([
-            //     'status' => true,
-            //     'data' => $user,
-            //     'token' => $token,
-            //     'message' => 'login berhasil'
-            // ]);
+
+            $response = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->getRoleNames()->first(),
+                'nohp' => $user->customer->nohp,
+                'alamat' => $user->customer->alamat,
+
+            ];
+            return response()->json([
+                'status' => true,
+                'access_token' => $token,
+                'data' => $response,
+            ]);
         }
-        return redirect('login')->with('error', 'Invalid username or password');
-        // response()->json([
+        return redirect('/login')->with('failed', 'Login Failed');
+        // return response()->json([
         //     'status' => false,
         //     'message' => 'login gagal: email atau password tidak valid'
         // ], 401);
+
     }
     public function logoutUser(Request $req)
     {
-       auth()->user()->currentAccessToken()->delete();
+        auth()->user()->currentAccessToken()->delete();
         return response()->json(
             [
                 'status' => true,

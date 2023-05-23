@@ -63,7 +63,3 @@ Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
 Route::post('/service_manages', [ServiceManageController::class, 'create']);
 Route::post('/service_manages/{id}', [ServiceManageController::class, 'update']);
 Route::delete('/service_manages/{id}', [ServiceManageController::class, 'destroy']);
-
-Route::post('/register', [AuthController::class, 'registerUser']);
-Route::post('/login', [AuthController::class, 'loginUser']);
-Route::post('/logout', [AuthController::class, 'logoutUser'])->middleware(['auth:sanctum']);

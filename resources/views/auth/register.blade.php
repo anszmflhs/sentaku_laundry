@@ -50,6 +50,16 @@
                                         placeholder="Email" required>
                                 </div>
                                 <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="nohp" name="nohp" class="form-control rounded-left"
+                                        placeholder="No Hp" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <input type="alamat" name="alamat" class="form-control rounded-left"
+                                        placeholder="Alamat" required>
+                                </div>
+                                <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" name="password" class="form-control rounded-left"
                                         placeholder="Password" required>

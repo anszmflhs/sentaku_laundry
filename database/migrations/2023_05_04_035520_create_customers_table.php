@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nohp');
             $table->string('alamat');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status',['Active','Inactive'])->default('Inactive');
+            $table->enum('status',['Active','Inactive'])->default('Active');
             $table->timestamps();
         });
     }
