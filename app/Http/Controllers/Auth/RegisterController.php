@@ -113,9 +113,7 @@ public function registerUser(Request $req)
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'role' => $user->getRoleNames()->first(),
-            'nohp' => $customer->nohp,
-            'alamat' => $customer->alamat,
+            'customer' => $customer
 
         ];
         return response()->json([

@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\Route;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
-|
+|;
 */
 
-Route::post('/login', [AuthController::class, 'loginUser']);
+Route::post('/login-user', [AuthController::class, 'loginUser']);
 Route::post('/register', [RegisterController::class, 'register']);
-Route::get('/logout', [AuthController::class, 'logoutUser']);
+Route::post('/logoutUser', [AuthController::class, 'logoutUser'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -48,11 +48,15 @@ Route::post('/job_details', [JobDetailController::class, 'create']);
 Route::post('/job_details/{id}', [JobDetailController::class, 'update']);
 Route::delete('/job_details/{id}', [JobDetailController::class, 'destroy']);
 
+Route::get('/payments', [PaymentController::class, 'indexs'])->middleware('auth:sanctum');
 Route::post('/payments', [PaymentController::class, 'create']);
+Route::post('/payments', [PaymentController::class, 'creates']);
 Route::post('/payments/{id}', [PaymentController::class, 'update']);
 Route::delete('/payments/{id}', [PaymentController::class, 'destroy']);
 
+Route::get('/price_lists', [PriceListController::class, 'indexs']);
 Route::post('/price_lists', [PriceListController::class, 'create']);
+Route::post('/price_lists', [PriceListController::class, 'creates']);
 Route::post('/price_lists/{id}', [PriceListController::class, 'update']);
 Route::delete('/price_lists/{id}', [PriceListController::class, 'destroy']);
 
@@ -60,6 +64,8 @@ Route::post('/roles', [RoleController::class, 'create']);
 Route::post('/roles/{id}', [RoleController::class, 'update']);
 Route::delete('/roles/{id}', [RoleController::class, 'destroy']);
 
+Route::get('/service_manages', [ServiceManageController::class, 'indexs']);
 Route::post('/service_manages', [ServiceManageController::class, 'create']);
+Route::post('/service_manages', [ServiceManageController::class, 'creates']);
 Route::post('/service_manages/{id}', [ServiceManageController::class, 'update']);
 Route::delete('/service_manages/{id}', [ServiceManageController::class, 'destroy']);

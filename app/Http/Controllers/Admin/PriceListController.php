@@ -18,10 +18,30 @@ class PriceListController extends Controller
         }
         return view('admin.pricelist.index');
     }
+    public function indexs()
+    {
+        $price_lists = PriceList::all();
+        return response()->json(
+            [
+                'status' => true,
+                'data' => $price_lists,
+            ]
+        );
+    }
     public function create()
     {
         $price_lists = PriceList::all();
         return view('admin.pricelist.create', compact('price_lists'));
+    }
+    public function creates(Request $request)
+    {
+        $data = $request->all();
+        $pricelist = PriceList::create($data);
+
+        return response()->json([
+            'status' => true,
+            'data' => $pricelist,
+        ]);
     }
     public function store(Request $request)
     {
@@ -98,16 +118,6 @@ class PriceListController extends Controller
         }
     }
 }
-//     public function index()
-//     {
-//         $price_lists = PriceList::all();
-//         return response()->json(
-//             [
-//                 'status' => true,
-//                 'data' => $price_lists,
-//             ]
-//         );
-//     }
 
 //     public function show($id)
 //     {

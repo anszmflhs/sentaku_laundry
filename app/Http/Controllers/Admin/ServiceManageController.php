@@ -21,6 +21,16 @@ class ServiceManageController extends Controller
             ]
         );
     }
+    public function indexs()
+    {
+        $service_manages = ServiceManage::all();
+        return response()->json(
+            [
+                'status' => true,
+                'data' => $service_manages,
+            ]
+        );
+    }
 
     public function show($id)
     {
@@ -65,6 +75,16 @@ class ServiceManageController extends Controller
         return response()->json([
             'status' => true,
             'data' => $service_manage,
+        ]);
+    }
+    public function creates(Request $request)
+    {
+        $data = $request->all();
+        $servicemanage = ServiceManage::create($data);
+
+        return response()->json([
+            'status' => true,
+            'data' => $servicemanage,
         ]);
     }
 

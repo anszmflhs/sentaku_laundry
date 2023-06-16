@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
     }
     public function viewLogin()
     {
@@ -59,9 +59,7 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $user->getRoleNames()->first(),
-                'nohp' => $user->customer->nohp,
-                'alamat' => $user->customer->alamat,
+                'customer' => $user->customer
 
             ];
             return response()->json([
@@ -70,11 +68,11 @@ class AuthController extends Controller
                 'data' => $response,
             ]);
         }
-        return redirect('/login')->with('failed', 'Login Failed');
-        // return response()->json([
-        //     'status' => false,
-        //     'message' => 'login gagal: email atau password tidak valid'
-        // ], 401);
+        // return redirect('/login')->with('failed', 'Login Failed');
+        return response()->json([
+            'status' => false,
+            'message' => 'login gagal: email atau password tidak valid'
+        ], 401);
 
     }
     public function logoutUser(Request $req)

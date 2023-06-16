@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\PriceList;
 use App\Models\ServiceManage;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,12 +24,35 @@ class PaymentController extends Controller
         }
         return view('admin.payment.index');
     }
+    public function indexs()
+    {
+        $userId = auth()->user()->id;
+        $payments = Payment::with(['user.customer', 'pricelist', 'servicemanage'])
+->where('user_id', $userId)
+        ->orderBy('id', 'desc')->get();
+        return response()->json(
+            [
+                'status' => true,
+                'data' => $payments,
+            ]
+        );
+    }
     public function create()
     {
         $users = User::all();
         $service_manages = ServiceManage::all();
         $price_lists = PriceList::all();
         return view('admin.payment.create', compact('users', 'service_manages', 'price_lists'));
+    }
+    public function creates(Request $request)
+    {
+        $data = $request->all();
+        $payment = Payment::create($data);
+
+        return response()->json([
+            'status' => true,
+            'data' => $payment,
+        ]);
     }
     public function store(Request $request)
     {
@@ -66,7 +90,7 @@ class PaymentController extends Controller
         $users = User::all();
         $service_manages = ServiceManage::all();
         $price_lists = PriceList::all();
-        return view('admin.payment.edit', compact('payments','users', 'service_manages', 'price_lists'));
+        return view('admin.payment.edit', compact('payments', 'users', 'service_manages', 'price_lists'));
     }
     public function update(Request $request)
     {

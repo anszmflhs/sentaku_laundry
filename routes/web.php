@@ -57,7 +57,7 @@ Route::prefix('karyawan')->group(function () {
     Route::delete('/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 });
 Route::prefix('payment')->group(function () {
-    Route::get('/', [PaymentController::class, 'index'])->name('payment.index');
+    // Route::get('/', [PaymentController::class, 'index'])->name('payment.index');
     Route::get('/create', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('/', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
